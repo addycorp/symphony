@@ -69,9 +69,9 @@ Instructions:
 
 Work only in the provided repository copy. Do not touch any other path.
 
-## Prerequisite: Linear CLI, Linear MCP, or `linear_graphql` tool is available
+## Prerequisite: Linear CLI is available
 
-The agent should be able to talk to Linear via the repo-local `linear-cli` skill, a configured Linear MCP server, or the injected `linear_graphql` tool. Prefer `linear-cli` for high-level issue/comment/project operations when the `linear` command is available. Use `linear_graphql` for exact custom GraphQL, uploads, or when CLI install/auth is unavailable. If none are present, stop and ask the user to configure Linear.
+The agent should be able to talk to Linear via the repo-local `linear-cli` skill and the external `linear` command. If `linear` is unavailable or unauthenticated, stop and ask the user to configure Linear CLI auth.
 
 ## Default posture
 
@@ -95,8 +95,7 @@ The agent should be able to talk to Linear via the repo-local `linear-cli` skill
 
 ## Related skills
 
-- `linear-cli`: preferred high-level Linear issue/comment/project operations when the CLI is available.
-- `linear`: fallback raw `linear_graphql` operations using Symphony session auth.
+- `linear-cli`: required Linear issue/comment/project operations.
 - `commit`: produce clean, logical commits during implementation.
 - `push`: keep remote branch current and publish updates.
 - `pull`: keep branch updated with latest `origin/main` before handoff.

@@ -2,15 +2,14 @@
 name: linear-cli
 description: |
   Use the `linear` command-line client for agent-friendly Linear issue,
-  comment, project, milestone, document, and raw GraphQL operations.
-  Prefer this skill for high-level Linear work when the CLI is available;
-  use Symphony's `linear` skill for the injected `linear_graphql` fallback.
+  comment, project, milestone, document, and Linear workflow operations.
+  Use this skill for all Linear work in Symphony workflows.
 ---
 
 # Linear CLI
 
 Use `linear-cli` for common Linear operations from the shell. It is more
-agent-friendly than hand-written GraphQL for issue reads, comments, state
+agent-friendly than hand-written API calls for issue reads, comments, state
 updates, projects, milestones, labels, and documents.
 
 ## Availability
@@ -28,8 +27,7 @@ pnpm dlx @schpet/linear-cli --version
 pnpm dlx @schpet/linear-cli <command...>
 ```
 
-If neither is available, use the repo-local `linear` skill and its
-`linear_graphql` tool instead.
+If neither is available, install the CLI before attempting Linear work.
 
 ## Authentication
 
@@ -45,15 +43,14 @@ If auth is missing in an interactive operator shell, use:
 linear auth login
 ```
 
-In unattended Symphony app-server sessions, do not stop just because CLI auth is
-missing. Fall back to `linear_graphql`, which reuses Symphony's configured
-Linear auth for the session.
+In unattended Symphony app-server sessions, missing CLI auth is a real blocker:
+record it in the workpad and move the issue according to the workflow's blocker
+policy.
 
 ## Symphony Rules
 
 - Prefer `linear-cli` for supported high-level operations.
-- Use `linear_graphql` for exact custom mutations, uploads, schema
-  introspection, or when CLI install/auth is unavailable.
+- Do not use Symphony's injected `linear_graphql` tool in these workflows.
 - Do not run `linear issue start` inside Symphony unless the workflow explicitly
   asks for branch creation or branch switching. Symphony owns workspace
   lifecycle, and the `pull`/`push` skills own git handoff.
@@ -77,24 +74,6 @@ linear milestone list --project PROJECT_ID
 linear document list
 ```
 
-For raw GraphQL through the CLI:
-
-```bash
-linear api --variable issueId=ISSUE_ID <<'GRAPHQL'
-query($issueId: String!) {
-  issue(id: $issueId) {
-    id
-    identifier
-    title
-    state { name type }
-  }
-}
-GRAPHQL
-```
-
-Use heredocs for GraphQL documents with `!` type markers to avoid shell
-escaping problems.
-
 ## Markdown Bodies
 
 Use files for multi-line Markdown:
@@ -116,5 +95,4 @@ linear --help
 linear issue --help
 linear issue update --help
 linear issue comment --help
-linear api --help
 ```

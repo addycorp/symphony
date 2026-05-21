@@ -86,8 +86,7 @@ The artifact must include:
 
 ## Linear Updates
 
-Use the repo-local `linear-cli` skill to keep Linear updated when the `linear` command is
-available. Use `linear_graphql` as the fallback for Symphony session auth or exact custom GraphQL:
+Use the repo-local `linear-cli` skill and the external `linear` command to keep Linear updated:
 
 - Read the issue before starting substantive work.
 - Add exactly one concise progress/handoff comment when the artifact is complete.
