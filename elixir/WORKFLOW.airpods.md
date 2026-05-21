@@ -1,7 +1,7 @@
 ---
 tracker:
   kind: linear
-  project_slug: "symphony-0c79b11b75ea"
+  project_slug: "4ed6ec67f949"
   active_states:
     - Todo
     - In Progress
@@ -19,12 +19,11 @@ workspace:
   root: ~/dev/symphonyws
 hooks:
   after_create: |
-    git clone --depth 1 https://github.com/openai/symphony .
-    if command -v mise >/dev/null 2>&1; then
-      cd elixir && mise trust && mise exec -- mix deps.get
-    fi
+    git init .
+    mkdir -p .codex
+    cp -R /Users/advithgopinath/dev/PERSONAL/symphony/.codex/skills .codex/
   before_remove: |
-    cd elixir && mise exec -- mix workspace.before_remove
+    true
 agent:
   max_concurrent_agents: 10
   max_turns: 20
@@ -34,6 +33,7 @@ codex:
   thread_sandbox: workspace-write
   turn_sandbox_policy:
     type: workspaceWrite
+    networkAccess: true
 ---
 
 You are working on a Linear ticket `{{ issue.identifier }}`

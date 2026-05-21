@@ -2,12 +2,17 @@
 name: linear
 description: |
   Use Symphony's `linear_graphql` client tool for raw Linear GraphQL
-  operations such as comment editing and upload flows.
+  operations when `linear-cli` is unavailable or an exact custom GraphQL
+  mutation/query is needed.
 ---
 
 # Linear GraphQL
 
 Use this skill for raw Linear GraphQL work during Symphony app-server sessions.
+Prefer the repo-local `linear-cli` skill for high-level Linear operations when
+the `linear` command is available. Use this skill as the reliable fallback for
+Symphony session auth, schema introspection, uploads, and exact mutations not
+covered by the CLI.
 
 ## Primary tool
 
